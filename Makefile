@@ -26,7 +26,7 @@ test-macos:
 	xcodebuild test $(MACOS_XCODEFLAGS) -configuration Debug -resultBundlePath $(TEST_RESULTS_DIR)/macOS -enableCodeCoverage YES $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
 
 travis-test: test-ios test-macos
-	./xccov-to-sonarqube-generic.sh $(TEST_RESULTS_DIR)/iOS/1_Test/action.xccovarchive/ $(TEST_RESULTS_DIR)/macOS/1_Test/action.xccovarchive/ > $(TEST_RESULTS_DIR)/sonarqube-generic-coverage.xml
+	./Scripts/xccov-to-sonarqube-generic.sh $(TEST_RESULTS_DIR)/iOS/1_Test/action.xccovarchive/ $(TEST_RESULTS_DIR)/macOS/1_Test/action.xccovarchive/ > $(TEST_RESULTS_DIR)/sonarqube-generic-coverage.xml
 
 validate:
 	pod lib lint --allow-warnings
