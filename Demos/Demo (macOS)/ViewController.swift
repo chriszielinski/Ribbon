@@ -30,7 +30,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         textView.string = "Hi 👋"
-        // swiftlint:disable next force_try
+        // swiftlint:disable:next force_try
         ribbon = try! Ribbon.loadFromMainBundle(target: ribbonTarget, delegate: self)
 
         if let formatMenuItem = NSApp.mainMenu?.item(withTitle: "Format") {

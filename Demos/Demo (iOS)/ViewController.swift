@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         ViewController.registerAppearance
 
         title = "Ribbon 🎀 Demo"
-        // swiftlint:disable next force_try
+        // swiftlint:disable:next force_try
         ribbon = try! Ribbon.loadFromMainBundle(target: ribbonTarget, delegate: self)
 
         textView.text = "Hi 👋"

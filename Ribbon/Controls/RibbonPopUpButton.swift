@@ -24,7 +24,7 @@ open class RibbonPopUpButton: NSPopUpButton, RibbonItemObserver {
     // MARK: - Computed Properties
 
     public var popUpButtonCell: NSPopUpButtonCell {
-        // swiftlint:disable next force_cast
+        // swiftlint:disable:next force_cast
         return cell as! NSPopUpButtonCell
     }
 

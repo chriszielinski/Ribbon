@@ -374,6 +374,7 @@ class RibbonUnitTests: XCTestCase {
     #endif
 
     #if canImport(UIKit)
+    @available(iOS 12.0, *)
     func testChangeUserInterface() throws {
         let ribbon = try createRibbon(target: nil)
 
@@ -382,7 +383,7 @@ class RibbonUnitTests: XCTestCase {
 
         XCTAssertEqual(ribbon.borderColor(), RibbonColor.darkRibbonBorder)
         ribbon.items.forEach { item in
-            // swiftlint:disable next force_cast
+            // swiftlint:disable:next force_cast
             item.controls.map({ $0 as! RibbonButton }).forEach { button in
                 XCTAssertEqual(button.backgroundColor, RibbonColor.darkButtonBackground)
                 XCTAssertEqual(button.borderColor(), RibbonColor.darkButtonBorder)
@@ -397,6 +398,7 @@ class RibbonUnitTests: XCTestCase {
 
         XCTAssertEqual(ribbon.borderColor(), RibbonColor.lightRibbonBorder)
         ribbon.items.forEach { item in
+            // swiftlint:disable:next force_cast
             item.controls.map({ $0 as! RibbonButton }).forEach { button in
                 XCTAssertEqual(button.backgroundColor, RibbonColor.lightButtonBackground)
                 XCTAssertEqual(button.borderColor(), RibbonColor.lightButtonBorder)
