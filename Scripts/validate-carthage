@@ -1,0 +1,13 @@
+#!/usr/bin/swift
+
+import Foundation
+
+let projectURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+if (try? projectURL.appendingPathComponent("Carthage/Build/iOS/Ribbon.framework").checkResourceIsReachable()) ?? false
+    && (try? projectURL.appendingPathComponent("Carthage/Build/Mac/Ribbon.framework").checkResourceIsReachable()) ?? false {
+    print("Carthage successfully builds iOS and macOS frameworks.")
+    exit(EXIT_SUCCESS)
+} else {
+    print("Carthage failed to build the iOS and macOS frameworks.")
+    exit(EXIT_FAILURE)
+}

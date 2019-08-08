@@ -7,8 +7,7 @@ addons:
       secure: KIwUzV3VoWdxf/YVbs3nYRvpGkziFKqpxzXlcgtM9pygfzqxIvbFIlYQ+HPoA7Xq6aY2ze79I13kL5nTr/Mmy8O4NzRPJKG1mSAO+kCy3n0RKrcNfIJh4Y3iTJBTsIdntIQGR656r/y2YKbCHLKnoCax/hS/gQqj8ndiNp8lNuSH4spraLDAyBcSL11ODHcEgP3sWL17iBEHaZjqeenQ0Dppih/3/ogzZ0qqhcCxxoUlTnaVh9Xn/qMj3V1PGlXRh0c5oYbssbLTj1adkAkVPveCMXi2TyAl7ABHiN6sKvuahFzIjvobXSZKkaE9ojgb6SlzcnIdM/V2OWS0PSOr6CLUaswnkOtdH4iYQ488RsygROAM5k5q6xIy6peqMebrMdP0HhdMETd216G0FhjP93v4tx0JdnLFyFL/lEs83fgjrS9MNXgqk42DCnAQ89AIxa+AJyFcCMa9Dmwv78I08XwF5f/M2ejbGx7vw/IBOEyhLhVDFmdha7Sw2zjXtsKWZ6d5UKihI66aQJxkFfG1Q5XhVjS9BTjdJXqukhfRA8GPqRypeJomWf0XhI/5h4OmaVMqfB1ADrINljMWnYDIT4sgg5U+EvXifVyA63lhHPIT1WSTkXGvSRjjomYzWK5S/dqIgR7g5UAvvFgNv/NHrVPcBaSfcY9/1yjrkL7HzoE=
 script:
   - make
-  - pod lib lint
-  - carthage build --no-skip-current
+  - make validate
   - make travis-test
   - swiftlint
   - sonar-scanner

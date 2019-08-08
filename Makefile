@@ -3,7 +3,7 @@ IOS_XCODEFLAGS=-project Ribbon.xcodeproj -scheme 'Demo (iOS)' -destination 'plat
 ENV_VARS=CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 TEST_RESULTS_DIR=./.testResults
 
-.PHONY: all build build-ios build-macos test test-ios test-macos travis-test
+.PHONY: all build build-ios build-macos test test-ios test-macos travis-test validate
 
 all: build
 
@@ -27,3 +27,8 @@ test-macos:
 
 travis-test: test-ios test-macos
 	./xccov-to-sonarqube-generic.sh $(TEST_RESULTS_DIR)/iOS/1_Test/action.xccovarchive/ $(TEST_RESULTS_DIR)/macOS/1_Test/action.xccovarchive/ > $(TEST_RESULTS_DIR)/sonarqube-generic-coverage.xml
+
+validate:
+	pod lib lint --allow-warnings
+	carthage build --no-skip-current
+	./Scripts/validate-carthage

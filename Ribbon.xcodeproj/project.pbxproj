@@ -160,6 +160,7 @@
 		1479C39422E15600000DF838 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1479C39622E15600000DF838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1479C39722E15600000DF838 /* Demo__macOS_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo__macOS_.entitlements; sourceTree = "<group>"; };
+		147F82FE22FCC3CD006CC865 /* validate-carthage */ = {isa = PBXFileReference; lastKnownFileType = text; path = "validate-carthage"; sourceTree = "<group>"; };
 		148D3E0722F35BAE001045AB /* CodingUserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUserInfoKey.swift; sourceTree = "<group>"; };
 		14AB5FDB22EFAEDA00BC721F /* RibbonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonColor.swift; sourceTree = "<group>"; };
 		14B2A31922EA4E19009AC07A /* RibbonItemObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonItemObserver.swift; sourceTree = "<group>"; };
@@ -255,6 +256,7 @@
 		146291FD22DFB66400E1FB5B = {
 			isa = PBXGroup;
 			children = (
+				147F82FD22FCC3A2006CC865 /* Scripts */,
 				1458F9FE22F2E9F20067197E /* ribbon.xcconfig */,
 				14E6662F22F23E000094BC0A /* README.md */,
 				146E3CED22E799C50033EFBC /* Demos */,
@@ -363,6 +365,14 @@
 				1479C38F22E155FF000DF838 /* ViewController.swift */,
 			);
 			path = "Demo (macOS)";
+			sourceTree = "<group>";
+		};
+		147F82FD22FCC3A2006CC865 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				147F82FE22FCC3CD006CC865 /* validate-carthage */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		14B2A31822EA4E06009AC07A /* Protocols */ = {
