@@ -3,7 +3,7 @@ IOS_XCODEFLAGS=-project Ribbon.xcodeproj -scheme 'Demo (iOS)' -destination 'plat
 ENV_VARS=CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 TEST_RESULTS_DIR=./.testResults
 
-.PHONY: all build build-ios build-macos test test-ios test-macos travis-test travis-test-ios travis-test-macos clean-test
+.PHONY: all build build-ios build-macos test test-ios test-macos travis-test
 
 all: build
 
@@ -17,18 +17,13 @@ build-macos:
 
 test: test-ios test-macos
 
-test-ios: clean-test
-	xcodebuild test $(IOS_XCODEFLAGS) -configuration Debug -resultBundlePath $(TEST_RESULTS_DIR) -enableCodeCoverage YES $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
+test-ios:
+	rm -rf $(TEST_RESULTS_DIR)/iOS
+	xcodebuild test $(IOS_XCODEFLAGS) -configuration Debug -resultBundlePath $(TEST_RESULTS_DIR)/iOS -enableCodeCoverage YES $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
 
 test-macos:
-	xcodebuild test $(MACOS_XCODEFLAGS) -configuration Debug $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
+	rm -rf $(TEST_RESULTS_DIR)/macOS
+	xcodebuild test $(MACOS_XCODEFLAGS) -configuration Debug -resultBundlePath $(TEST_RESULTS_DIR)/macOS -enableCodeCoverage YES $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
 
-travis-test: travis-test-ios travis-test-macos
-
-travis-test-ios: test-ios
-	./xccov-to-sonarqube-generic.sh $(TEST_RESULTS_DIR)/1_Test/action.xccovarchive/ > $(TEST_RESULTS_DIR)/sonarqube-generic-coverage.xml
-
-travis-test-macos: test-macos
-
-clean-test:
-	rm -rf .testResults
+travis-test: test-ios test-macos
+	./xccov-to-sonarqube-generic.sh $(TEST_RESULTS_DIR)/iOS/1_Test/action.xccovarchive/ $(TEST_RESULTS_DIR)/macOS/1_Test/action.xccovarchive/ > $(TEST_RESULTS_DIR)/sonarqube-generic-coverage.xml

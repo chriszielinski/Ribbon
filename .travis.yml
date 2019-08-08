@@ -9,4 +9,4 @@ script:
   - make
   - make travis-test
   - swiftlint
-  - sonar-scanner -X
+  - sonar-scanner
