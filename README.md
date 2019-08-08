@@ -55,17 +55,21 @@ Features
 > 🎡 **Try:** Includes an iOS & macOS demo.
 
 - Provide items either programmatically or from a JSON configuration file.
-- Dark mode ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode/) & [macOS](https://developer.apple.com/design/human-interface-guidelines/macos/visual-design/dark-mode/))
-- _iOS:_
-  - Supports push buttons—a segmented item's subitems become push buttons. 
-  - _iOS 13:_ [action] items use the new [context menu interaction](https://developer.apple.com/design/human-interface-guidelines/ios/controls/context-menus/):
-
-    <img src="https://raw.githubusercontent.com/chriszielinski/Ribbon/master/.readme-assets/ios13.gif" height="450" alt="iOS 13 Context Menu Interaction">
-
-- _macOS:_
-  - Supports push, [action], & segmented control toolbar items.
-  - Provides `NSMenuItem`s for each item.
+- Dark mode.
 - \+ more!
+
+#### iOS
+
+- Supports push buttons—a segmented item's subitems become push buttons. 
+- iOS 13: [action] items use the new [context menu interaction](https://developer.apple.com/design/human-interface-guidelines/ios/controls/context-menus/):
+
+   <img src="https://raw.githubusercontent.com/chriszielinski/Ribbon/master/.readme-assets/ios13.gif" height="450" alt="iOS 13 Context Menu Interaction">
+
+#### macOS
+
+- Supports push, [action], & segmented control toolbar items.
+- Provides `NSMenuItem`s for each item.
+
 
 [action]:
    https://developer.apple.com/design/human-interface-guidelines/macos/buttons/pull-down-buttons#action-buttons
@@ -74,7 +78,7 @@ Features
 Requirements
 ============
 
-- iOS 10.0+
+- iOS 10.0+ (12.0+ for dark mode)
 - macOS 10.12+ (10.13+ for full functionality)
 
 
@@ -94,6 +98,19 @@ github "chriszielinski/Ribbon"
 
 ```ruby
 pod "Ribbon"
+```
+
+iOS 13
+------
+
+Building for iOS 13 requires [Xcode 11](https://developer.apple.com/xcode/) and modifying [_iOS13.xcconfig_](https://github.com/chriszielinski/Ribbon/blob/master/iOS13.xcconfig):
+
+```swift
+// Uncomment to build Ribbon for iOS 13.
+//
+// - Note: Requires Xcode 11.
+
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) IOS13
 ```
 
 

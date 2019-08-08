@@ -72,11 +72,11 @@ class ViewController: UIViewController {
 
     @available(iOS 12.0, *)
     var userInterfaceStyle: UIUserInterfaceStyle {
+        #if IOS13
         if #available(iOS 13.0, *) {
-            #if IOS13
             return navigationController?.overrideUserInterfaceStyle ?? traitCollection.userInterfaceStyle
-            #endif
         }
+        #endif
         return overrideTraitCollection(forChild: self)?.userInterfaceStyle ?? traitCollection.userInterfaceStyle
     }
 
@@ -127,28 +127,34 @@ class ViewController: UIViewController {
 
     @available(iOS 12.0, *)
     func setUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
+        let earlierVersion: () -> Void = { [unowned self] in
+            self.setOverrideTraitCollection(UITraitCollection(userInterfaceStyle: style), forChild: self)
+
+            self.ribbon.setUserInterfaceStyle(style)
+
+            let textViewProxy = UITextView.appearance(for: UITraitCollection(userInterfaceStyle: style))
+            self.textView.tintColor = textViewProxy.tintColor
+            self.textView.textColor = textViewProxy.textColor
+            self.textView.backgroundColor = textViewProxy.backgroundColor
+            self.textView.keyboardAppearance = style == .dark ? .dark : .light
+
+            let navigationBarProxy = UINavigationBar.appearance(for: UITraitCollection(userInterfaceStyle: style))
+            self.navigationController?.navigationBar.tintColor = navigationBarProxy.tintColor
+            self.navigationController?.navigationBar.barStyle = navigationBarProxy.barStyle
+        }
+
+        #if IOS13
         if #available(iOS 13.0, *) {
-            #if IOS13
             // Handled by new `UIAppearence` functionality.
             navigationController?.overrideUserInterfaceStyle = style
             navigationController?.navigationBar.overrideUserInterfaceStyle = style
-            #endif
         } else {
             // Fallback on earlier versions
-            setOverrideTraitCollection(UITraitCollection(userInterfaceStyle: style), forChild: self)
-
-            ribbon.setUserInterfaceStyle(style)
-
-            let textViewProxy = UITextView.appearance(for: UITraitCollection(userInterfaceStyle: style))
-            textView.tintColor = textViewProxy.tintColor
-            textView.textColor = textViewProxy.textColor
-            textView.backgroundColor = textViewProxy.backgroundColor
-            textView.keyboardAppearance = style == .dark ? .dark : .light
-
-            let navigationBarProxy = UINavigationBar.appearance(for: UITraitCollection(userInterfaceStyle: style))
-            navigationController?.navigationBar.tintColor = navigationBarProxy.tintColor
-            navigationController?.navigationBar.barStyle = navigationBarProxy.barStyle
+            earlierVersion()
         }
+        #else
+        earlierVersion()
+        #endif
 
         view.window?.backgroundColor = style == .dark ? .black : .white
     }
@@ -173,11 +179,11 @@ extension ViewController: RibbonDelegate {
         case .firstActionSubitem, .secondActionSubitem:
             if #available(iOS 13.0, *) {
                 return UIImage(systemName: imageName)
-            } else {
-                fallthrough
             }
+
+            fallthrough
         default:
-            return nil
+            return UIImage(named: imageName)
         }
     }
 

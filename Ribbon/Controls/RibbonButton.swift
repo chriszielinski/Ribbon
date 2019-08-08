@@ -154,7 +154,6 @@ public class RibbonButton: Button, RibbonItemObserver {
     #if IOS13
     @objc
     open func dismissContextMenuInteraction() {
-        // Dismiss context menu interaction when the keyboard is used.
         UIApplication.shared.windows
             .first(where: { $0.rootViewController?.presentedViewController != nil })?.rootViewController?
             .dismiss(animated: true)
@@ -255,6 +254,7 @@ extension RibbonButton: UIContextMenuInteractionDelegate {
             else { return }
         item.ribbon?.delegate?.ribbon?(contextMenuInteractionWillPresent: item.identifier)
 
+        // Dismiss the interaction when the keyboard is used.
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(dismissContextMenuInteraction),
                                                name: UITextView.textDidChangeNotification,
