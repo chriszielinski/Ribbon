@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
   s.author                = { 'chriszielinski' => 'chrisz@berkeley.edu' }
-  s.social_media_url      = 'http://twitter.com/mightbesuperman'
+  s.social_media_url      = 'https://twitter.com/mightbesuperman'
 
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
