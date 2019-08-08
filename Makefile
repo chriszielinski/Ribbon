@@ -3,7 +3,7 @@ IOS_XCODEFLAGS=-project Ribbon.xcodeproj -scheme 'Demo (iOS)' -destination 'plat
 ENV_VARS=CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 TEST_RESULTS_DIR=./.testResults
 
-.PHONY: all build build-ios build-macos test test-ios test-macos travis-test clean-test
+.PHONY: all build build-ios build-macos test test-ios test-macos travis-test travis-test-ios travis-test-macos clean-test
 
 all: build
 
@@ -23,8 +23,12 @@ test-ios: clean-test
 test-macos:
 	xcodebuild test $(MACOS_XCODEFLAGS) -configuration Debug $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
 
-travis-test: test
+travis-test: travis-test-ios travis-test-macos
+
+travis-test-ios: test-ios
 	./xccov-to-sonarqube-generic.sh $(TEST_RESULTS_DIR)/1_Test/action.xccovarchive/ > $(TEST_RESULTS_DIR)/sonarqube-generic-coverage.xml
+
+travis-test-macos: test-macos
 
 clean-test:
 	rm -rf .testResults
