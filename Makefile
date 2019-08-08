@@ -1,7 +1,7 @@
 MACOS_XCODEFLAGS=-project Ribbon.xcodeproj -scheme 'Demo (macOS)' -destination 'platform=macOS'
 IOS_XCODEFLAGS=-project Ribbon.xcodeproj -scheme 'Demo (iOS)' -destination 'platform=iOS Simulator,name=iPhone 8'
 ENV_VARS=CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-TEST_RESULTS_DIR=.testResults
+TEST_RESULTS_DIR=./.testResults
 
 .PHONY: all build build-ios build-macos test test-ios test-macos travis-test clean-test
 
@@ -18,7 +18,7 @@ build-macos:
 test: test-ios test-macos
 
 test-ios: clean-test
-	xcodebuild test $(IOS_XCODEFLAGS) -configuration Debug -resultBundlePath $(TEST_RESULTS_DIR) $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
+	xcodebuild test $(IOS_XCODEFLAGS) -configuration Debug -resultBundlePath $(TEST_RESULTS_DIR) -enableCodeCoverage YES $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
 
 test-macos:
 	xcodebuild test $(MACOS_XCODEFLAGS) -configuration Debug $(ENV_VARS) | xcpretty && exit ${PIPESTATUS[0]}
