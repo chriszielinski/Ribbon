@@ -18,7 +18,7 @@ Ribbon 🎀
 	  <img src="https://sonarcloud.io/api/project_badges/measure?project=chriszielinski_Ribbon&metric=coverage">
 	</a>
 	<a href="https://codebeat.co/projects/github-com-chriszielinski-ribbon-master" style="text-decoration:none" target="_blank">
-	   <img alt="codebeat badge" src="" />
+	   <img alt="codebeat badge" src="https://codebeat.co/badges/8fa0b6cf-73e1-425a-a196-8b62197cfa40"/>
    </a>
 	<a href="https://developer.apple.com/swift" style="text-decoration:none" target="_blank">
 		<img alt="Swift Version" src ="https://img.shields.io/badge/language-Swift%205-blue.svg"/>
@@ -32,7 +32,7 @@ Ribbon 🎀
     <img src="https://raw.githubusercontent.com/chriszielinski/Ribbon/master/.readme-assets/header.jpg" alt="Header">
     <br>
     <br>
-    <b>A simple cross-platform custom input accessory view/toolbar library for iOS & macOS.
+    <b>A simple cross-platform toolbar/custom input accessory view library for iOS & macOS.
     <br>
     Written in Swift.</b>
     <br>
@@ -54,7 +54,6 @@ Features
 
 > 🎡 **Try:** Includes an iOS & macOS demo.
 
-- Type-safe.
 - Dark mode ([iOS](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode/) & [macOS](https://developer.apple.com/design/human-interface-guidelines/macos/visual-design/dark-mode/))
 - _iOS 13:_ [Action](https://developer.apple.com/design/human-interface-guidelines/macos/buttons/pull-down-buttons#action-buttons) items use the new [context menu interaction](https://developer.apple.com/design/human-interface-guidelines/ios/controls/context-menus/):
 

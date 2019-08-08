@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 
   s.name                  = 'Ribbon'
   s.version               = '1.0'
-  s.summary               = '🎀 A simple cross-platform custom input accessory view/toolbar library for iOS & macOS. Written in Swift.'
+  s.summary               = '🎀 A simple cross-platform toolbar/custom input accessory view library for iOS & macOS. Written in Swift.'
   s.homepage              = 'https://github.com/chriszielinski/Ribbon'
   s.screenshots           = 'https://raw.githubusercontent.com/chriszielinski/Ribbon/master/.readme-assets/header.jpg'
 
