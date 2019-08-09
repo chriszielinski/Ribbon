@@ -77,9 +77,6 @@ open class Ribbon: RibbonShim {
 
     public private(set) var configuration: RibbonConfiguration?
     #if canImport(UIKit)
-    public var toolbarView: UIView!
-    public var scrollView: UIScrollView!
-    public var stackView: UIStackView!
     public var topBorder: CALayer?
     public var bottomBorder: CALayer?
     #endif
@@ -92,7 +89,17 @@ open class Ribbon: RibbonShim {
 
     // MARK: - Computed Properties
 
-    #if canImport(AppKit)
+    #if canImport(UIKit)
+    open var toolbarView: UIView? {
+        return subviews.first
+    }
+    open var scrollView: UIScrollView? {
+        return (toolbarView as? UIVisualEffectView)?.contentView.subviews.first as? UIScrollView
+    }
+    open var stackView: UIStackView? {
+        return scrollView?.subviews.last as? UIStackView
+    }
+    #else
     public var menuItems: [NSMenuItem] {
         return items.map {
             $0.initializeMenuItemIfNeeded()
@@ -116,17 +123,14 @@ open class Ribbon: RibbonShim {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
 
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(createInputAccessoryView())
 
-        stackView = createStackView()
-        scrollView = createScrollView()
-        toolbarView = createInputAccessoryView()
-        scrollView.addSubview(stackView)
-        addSubview(toolbarView)
-
-        NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
-            ])
+        if let stackView = stackView, let scrollView = scrollView {
+            NSLayoutConstraint.activate([
+                stackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+                stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
+                ])
+        }
 
         setNeedsLayout()
         #else
@@ -152,13 +156,15 @@ open class Ribbon: RibbonShim {
 
     #if canImport(UIKit)
     open override func layoutSubviews() {
-        scrollView.contentSize.width = stackView.arrangedSubviews.reduce(0, {
-            $0 + $1.bounds.width + 8
-        })
-        topBorder?.frame = CGRect(origin: toolbarView.bounds.origin,
-                                  size: CGSize(width: toolbarView.bounds.width, height: 0.5))
-        bottomBorder?.frame = CGRect(origin: CGPoint(x: 0, y: toolbarView.bounds.maxY - 1),
-                                     size: CGSize(width: toolbarView.bounds.width, height: 0.5))
+        if let stackView = stackView {
+            scrollView?.contentSize.width = stackView.arrangedSubviews.reduce(0, {
+                $0 + $1.bounds.width + 8
+            })
+        }
+        topBorder?.frame = CGRect(origin: bounds.origin,
+                                  size: CGSize(width: bounds.width, height: 0.5))
+        bottomBorder?.frame = CGRect(origin: CGPoint(x: 0, y: bounds.maxY - 1),
+                                     size: CGSize(width: bounds.width, height: 0.5))
 
         super.layoutSubviews()
     }
@@ -183,7 +189,7 @@ open class Ribbon: RibbonShim {
 
         visualEffectView.contentView.layer.addSublayer(topBorder!)
         visualEffectView.contentView.layer.addSublayer(bottomBorder!)
-        visualEffectView.contentView.addSubview(scrollView)
+        visualEffectView.contentView.addSubview(createScrollView())
 
         return visualEffectView
     }
@@ -195,6 +201,8 @@ open class Ribbon: RibbonShim {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.alwaysBounceHorizontal = true
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+
+        scrollView.addSubview(createStackView())
 
         return scrollView
     }
