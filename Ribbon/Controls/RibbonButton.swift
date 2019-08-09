@@ -172,7 +172,15 @@ public class RibbonButton: Button, RibbonItemObserver {
             setAttributedTitle(nil)
             setImage(itemImage)
         } else {
+            #if canImport(UIKit) && IOS13
+            if #available(iOS 13.0, *), item.controlKind == .action {
+                // Do nothing.
+            } else {
+                setImage(nil)
+            }
+            #else
             setImage(nil)
+            #endif
 
             if item.usesAttributedTitle {
                 setTitle(nil)
