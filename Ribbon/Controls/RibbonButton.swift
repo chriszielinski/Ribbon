@@ -172,9 +172,7 @@ public class RibbonButton: Button, RibbonItemObserver {
             setAttributedTitle(nil)
             setImage(itemImage)
         } else {
-            if item.controlKind != .action {
-                setImage(nil)
-            }
+            setImage(nil)
 
             if item.usesAttributedTitle {
                 setTitle(nil)
@@ -187,15 +185,13 @@ public class RibbonButton: Button, RibbonItemObserver {
 
         isHidden = item.isHidden
 
-        #if canImport(UIKit)
-        invalidateIntrinsicContentSize()
-        #else
+        #if canImport(AppKit)
         keyEquivalent = item.keyEquivalent
         keyEquivalentModifierMask = item.keyEquivalentModifierMask
         toolTip = item.toolTip
+        #endif
 
         invalidateIntrinsicContentSize()
-        #endif
     }
 
 }

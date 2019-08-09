@@ -70,7 +70,7 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
 
     // MARK: Variable
 
-    public var action: Selector
+    public var action: Selector?
     public var control: (Control & RibbonItemObserver)?
     #if canImport(AppKit)
     public var menuItems: [RibbonMenuItem] = []
@@ -149,14 +149,10 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
     public init(controlKind: ControlKind,
                 identifier: Identifier? = nil,
                 attributedTitle: NSMutableAttributedString,
-                image: Image? = nil,
-                action: Selector,
                 subitems: [RibbonItem]? = nil) {
-        self.action = action
         self.attributedTitle = attributedTitle
         self.controlKind = controlKind
         self.identifier = identifier ?? Identifier(attributedTitle.string)
-        self.image = image
         self.subitems = subitems
 
         super.init()
@@ -164,14 +160,9 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
         initializeControl()
     }
 
-    public init(subItemTitle title: NSMutableAttributedString,
-                identifier: Identifier? = nil,
-                image: Image? = nil,
-                action: Selector) {
-        self.action = action
+    public init(subItemTitle title: NSMutableAttributedString, identifier: Identifier? = nil) {
         self.attributedTitle = title
         self.identifier = identifier ?? Identifier(title.string)
-        self.image = image
 
         controlKind = nil
         subitems = nil
@@ -182,26 +173,18 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
     public convenience init(controlKind: ControlKind,
                             identifier: Identifier? = nil,
                             title: String,
-                            image: Image? = nil,
-                            action: Selector,
                             subitems: [RibbonItem]? = nil) {
         self.init(controlKind: controlKind,
                   identifier: identifier,
                   attributedTitle: NSMutableAttributedString(string: title),
-                  image: image,
-                  action: action,
                   subitems: subitems)
 
         usesAttributedTitle = false
         didChangeItem()
     }
 
-    public convenience init(subItemTitle title: String,
-                            image: Image? = nil,
-                            action: Selector) {
-        self.init(subItemTitle: NSMutableAttributedString(string: title),
-                  image: image,
-                  action: action)
+    public convenience init(subItemTitle title: String) {
+        self.init(subItemTitle: NSMutableAttributedString(string: title))
 
         usesAttributedTitle = false
         didChangeItem()
@@ -259,17 +242,14 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
             control = RibbonButton(item: self)
         }
         #else
-        guard let controlKind = controlKind
-            else { return }
-
         switch controlKind {
-        case .action:
+        case .action?:
             control = RibbonPopUpButton(item: self)
-        case .segmented:
+        case .segmented?:
             guard hasSubitems
                 else { fallthrough }
             control = RibbonSegmentedControl(item: self)
-        case .push:
+        default:
             control = RibbonButton(item: self)
         }
         #endif
@@ -293,17 +273,13 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
     }
 
     open func initializeToolbarItemIfNeeded() {
-        guard toolbarItem == nil,
-            let controlKind = controlKind
+        guard toolbarItem == nil
             else { return }
 
         initializeMenuItemIfNeeded()
 
         switch controlKind {
-        case .segmented:
-            guard hasSubitems
-                else { fallthrough }
-
+        case .segmented? where hasSubitems:
             let group = NSToolbarItemGroup(itemIdentifier: identifier)
             group.subitems = subitems!.map { NSToolbarItem(subitem: $0) }
             group.paletteLabel = title
@@ -331,11 +307,11 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
 
     @objc
     open func sendAction(_ object: Any?, _ event: Any?) {
-        if let target = ribbon?.target {
+        if let action = action {
             #if canImport(UIKit)
-            UIApplication.shared.sendAction(action, to: target, from: object, for: event as? UIEvent)
+            UIApplication.shared.sendAction(action, to: ribbon?.target, from: object, for: event as? UIEvent)
             #else
-            NSApp.sendAction(action, to: target, from: object)
+            NSApp.sendAction(action, to: ribbon?.target, from: object)
             #endif
         }
     }

@@ -77,9 +77,8 @@ class RibbonUnitTests: XCTestCase {
         let toolTip = "A tooltip!"
         #endif
 
-        let item = RibbonItem(controlKind: .push,
-                              title: title,
-                              action: #selector(Target.pushItemHandler))
+        let item = RibbonItem(controlKind: .push, title: title)
+        item.action = #selector(Target.pushItemHandler)
 
         #if canImport(AppKit)
         item.usesToolTipInMenu = true

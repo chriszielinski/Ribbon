@@ -114,26 +114,23 @@ open class Ribbon: RibbonShim {
         Ribbon.registerAppearance
 
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
-        #else
-        super.init()
-        #endif
 
-        #if canImport(UIKit)
         autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         stackView = createStackView()
         scrollView = createScrollView()
+        toolbarView = createInputAccessoryView()
         scrollView.addSubview(stackView)
+        addSubview(toolbarView)
 
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
             ])
 
-        toolbarView = createInputAccessoryView()
-        addSubview(toolbarView)
-
-        layoutIfNeeded()
+        setNeedsLayout()
+        #else
+        super.init()
         #endif
 
         items.forEach { $0.ribbon = self }
@@ -180,7 +177,7 @@ open class Ribbon: RibbonShim {
         topBorder = CALayer()
         bottomBorder = CALayer()
 
-        let visualEffectView = UIVisualEffectView(frame: CGRect(x: 0, y: 0, width: bounds.size.width, height: 40))
+        let visualEffectView = UIVisualEffectView(frame: bounds)
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         visualEffectView.effect = UIBlurEffect(style: .prominent)
 
@@ -192,7 +189,7 @@ open class Ribbon: RibbonShim {
     }
 
     open func createScrollView() -> UIScrollView {
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: bounds.size.width, height: 40))
+        let scrollView = UIScrollView(frame: bounds)
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scrollView.backgroundColor = .clear
         scrollView.showsHorizontalScrollIndicator = false
