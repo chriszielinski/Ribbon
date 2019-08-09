@@ -76,10 +76,6 @@ open class Ribbon: RibbonShim {
     // MARK: Variable
 
     public private(set) var configuration: RibbonConfiguration?
-    #if canImport(UIKit)
-    public var topBorder: CALayer?
-    public var bottomBorder: CALayer?
-    #endif
 
     // MARK: Lazy
 
@@ -98,6 +94,12 @@ open class Ribbon: RibbonShim {
     }
     open var stackView: UIStackView? {
         return scrollView?.subviews.last as? UIStackView
+    }
+    open var topBorder: CALayer? {
+        return (toolbarView as? UIVisualEffectView)?.contentView.layer.sublayers?.first(where: { $0.name == "top" })
+    }
+    open var bottomBorder: CALayer? {
+        return (toolbarView as? UIVisualEffectView)?.contentView.layer.sublayers?.first(where: { $0.name == "bottom" })
     }
     #else
     public var menuItems: [NSMenuItem] {
@@ -180,15 +182,17 @@ open class Ribbon: RibbonShim {
 
     #if canImport(UIKit)
     open func createInputAccessoryView() -> UIView {
-        topBorder = CALayer()
-        bottomBorder = CALayer()
+        let topBorder = CALayer()
+        topBorder.name = "top"
+        let bottomBorder = CALayer()
+        bottomBorder.name = "bottom"
 
         let visualEffectView = UIVisualEffectView(frame: bounds)
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         visualEffectView.effect = UIBlurEffect(style: .prominent)
 
-        visualEffectView.contentView.layer.addSublayer(topBorder!)
-        visualEffectView.contentView.layer.addSublayer(bottomBorder!)
+        visualEffectView.contentView.layer.addSublayer(topBorder)
+        visualEffectView.contentView.layer.addSublayer(bottomBorder)
         visualEffectView.contentView.addSubview(createScrollView())
 
         return visualEffectView
