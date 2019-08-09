@@ -231,16 +231,16 @@ class YourViewController ... {
     var ribbon: Ribbon!
 
     override func viewDidLoad() {
-        let firstActionSubitem = RibbonItem(subItemTitle: "First Action Subitem",
-                                            action: #selector(firstActionSubitemHandler))
-        let secondActionSubitem = RibbonItem(subItemTitle: "Second Action Subitem",
-                                             action: #selector(secondActionSubitemHandler))
+        let firstActionSubitem = RibbonItem(subItemTitle: "First Action Subitem")
+        firstActionSubitem.action = #selector(firstActionSubitemHandler)
+        let secondActionSubitem = RibbonItem(subItemTitle: "Second Action Subitem")
+        secondActionSubitem.action = #selector(secondActionSubitemHandler)
 
         let actionItem = RibbonItem(controlKind: .action,
                                     title: "Action Item",
-                                    action: #selector(actionItemHandler),
                                     subitems: [firstActionSubitem, secondActionSubitem])
-        ribbon = Ribbon(items: [actionItem], target: ribbonTarget)
+        actionItem.action = #selector(actionItemHandler)
+        ribbon = Ribbon(items: [actionItem], target: self)
 
         #if canImport(UIKit)
         textView.inputAccessoryView = ribbon
