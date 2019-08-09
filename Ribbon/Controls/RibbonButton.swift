@@ -236,7 +236,7 @@ extension RibbonButton: UIContextMenuInteractionDelegate {
         guard let actions = item?.subitems?.map({ UIAction(title: $0.title,
                                                            image: $0.image,
                                                            identifier: UIAction.Identifier($0.identifier),
-                                                           handler: contextMenuAction(_:)) })
+                                                           handler: contextMenuAction) })
             else { return nil }
         return UIMenu(title: "", image: nil, identifier: nil, options: [], children: actions)
     }

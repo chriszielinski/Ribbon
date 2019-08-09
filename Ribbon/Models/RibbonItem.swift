@@ -305,12 +305,7 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
                 else { fallthrough }
 
             let group = NSToolbarItemGroup(itemIdentifier: identifier)
-            group.subitems = subitems!.map { subitem -> NSToolbarItem in
-                let toolbarItem = NSToolbarItem(itemIdentifier: Identifier(rawValue: subitem.title))
-                toolbarItem.label = subitem.title
-                return toolbarItem
-            }
-
+            group.subitems = subitems!.map { NSToolbarItem(subitem: $0) }
             group.paletteLabel = title
             group.view = control
             toolbarItem = group

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1403BB7F22FCF620003D3FD3 /* NSToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403BB7E22FCF620003D3FD3 /* NSToolbarItem.swift */; };
 		1446212422E53B3E00EEC704 /* ribbon-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1446212322E53B3E00EEC704 /* ribbon-configuration.json */; };
 		14510F7B22E6B3CD00E6E67B /* NSToolbarItem.Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14510F7A22E6B3CD00E6E67B /* NSToolbarItem.Identifier.swift */; };
 		145C634922F50A2700DA3023 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C634822F50A2700DA3023 /* Control.swift */; };
@@ -122,6 +123,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1403BB7E22FCF620003D3FD3 /* NSToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSToolbarItem.swift; sourceTree = "<group>"; };
 		1446212322E53B3E00EEC704 /* ribbon-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ribbon-configuration.json"; sourceTree = "<group>"; };
 		1446212522E57C7000EEC704 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		14510F7A22E6B3CD00E6E67B /* NSToolbarItem.Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSToolbarItem.Identifier.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				145DCC7922E9031600DCA750 /* NSEvent.ModifierFlags.swift */,
 				14740F6D22EB9004009F1D84 /* NSToolbar.swift */,
 				14740F6222EB7269009F1D84 /* NSToolbarItem.Identifier.swift */,
+				1403BB7E22FCF620003D3FD3 /* NSToolbarItem.swift */,
 				14AB5FDB22EFAEDA00BC721F /* RibbonColor.swift */,
 			);
 			path = Extensions;
@@ -638,6 +641,7 @@
 			files = (
 				148D3E0822F35BAE001045AB /* CodingUserInfoKey.swift in Sources */,
 				145DCC7622E8D98200DCA750 /* RibbonSegmentedControl.swift in Sources */,
+				1403BB7F22FCF620003D3FD3 /* NSToolbarItem.swift in Sources */,
 				14B2A31A22EA4E19009AC07A /* RibbonItemObserver.swift in Sources */,
 				1478DBF122E29CDC00EB00E4 /* RibbonItem.swift in Sources */,
 				14740F6A22EB7699009F1D84 /* RibbonToolbarConfiguration.swift in Sources */,
@@ -986,11 +990,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Demos/Demo (macOS)/Ribbon Demo (macOS).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "Demos/Demo (macOS)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1009,11 +1013,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Demos/Demo (macOS)/Ribbon Demo (macOS).entitlements";
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				INFOPLIST_FILE = "Demos/Demo (macOS)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
