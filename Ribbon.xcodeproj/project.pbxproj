@@ -141,6 +141,13 @@
 		1462923622E06F1D00E1FB5B /* Shims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shims.swift; sourceTree = "<group>"; };
 		14670C0A22ECD814008EC71A /* RibbonMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonMenuItem.swift; sourceTree = "<group>"; };
 		146E3CEE22E79A1A0033EFBC /* RibbonTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonTarget.swift; sourceTree = "<group>"; };
+		146FBAB122FDE3EE001BE271 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		146FBAB222FDE3EE001BE271 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		146FBAB322FDE3EE001BE271 /* Ribbon.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Ribbon.podspec; sourceTree = "<group>"; };
+		146FBAB422FDE3EE001BE271 /* sonar-project.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sonar-project.properties"; sourceTree = "<group>"; };
+		146FBAB522FDE41B001BE271 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		146FBAB622FDE42A001BE271 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
+		146FBAB722FDE42A001BE271 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		14740F6222EB7269009F1D84 /* NSToolbarItem.Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSToolbarItem.Identifier.swift; sourceTree = "<group>"; };
 		14740F6422EB728D009F1D84 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		14740F6722EB765F009F1D84 /* RibbonConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonConfiguration.swift; sourceTree = "<group>"; };
@@ -259,12 +266,11 @@
 		146291FD22DFB66400E1FB5B = {
 			isa = PBXGroup;
 			children = (
-				14E6662F22F23E000094BC0A /* README.md */,
-				1458F9FE22F2E9F20067197E /* iOS13.xcconfig */,
 				146E3CED22E799C50033EFBC /* Demos */,
 				1462920922DFB66400E1FB5B /* Ribbon */,
 				14E6CF5C22F0B44B002ADF6F /* Unit Tests */,
 				147F82FD22FCC3A2006CC865 /* Scripts */,
+				146FBAB022FDE3BE001BE271 /* Supporting Files */,
 				1462920822DFB66400E1FB5B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -313,6 +319,22 @@
 				1479C38C22E155FF000DF838 /* Demo (macOS) */,
 			);
 			path = Demos;
+			sourceTree = "<group>";
+		};
+		146FBAB022FDE3BE001BE271 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				146FBAB522FDE41B001BE271 /* .gitignore */,
+				146FBAB722FDE42A001BE271 /* .swiftlint.yml */,
+				146FBAB622FDE42A001BE271 /* .travis.yml */,
+				1458F9FE22F2E9F20067197E /* iOS13.xcconfig */,
+				146FBAB222FDE3EE001BE271 /* LICENSE */,
+				146FBAB122FDE3EE001BE271 /* Makefile */,
+				14E6662F22F23E000094BC0A /* README.md */,
+				146FBAB322FDE3EE001BE271 /* Ribbon.podspec */,
+				146FBAB422FDE3EE001BE271 /* sonar-project.properties */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		14740F6622EB7652009F1D84 /* Models */ = {
