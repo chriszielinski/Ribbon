@@ -148,6 +148,7 @@
 		146FBAB522FDE41B001BE271 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		146FBAB622FDE42A001BE271 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		146FBAB722FDE42A001BE271 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
+		14715C7B22FE091200A16CE0 /* .codebeatsettings */ = {isa = PBXFileReference; lastKnownFileType = text; path = .codebeatsettings; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		14740F6222EB7269009F1D84 /* NSToolbarItem.Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSToolbarItem.Identifier.swift; sourceTree = "<group>"; };
 		14740F6422EB728D009F1D84 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		14740F6722EB765F009F1D84 /* RibbonConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonConfiguration.swift; sourceTree = "<group>"; };
@@ -324,6 +325,7 @@
 		146FBAB022FDE3BE001BE271 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14715C7B22FE091200A16CE0 /* .codebeatsettings */,
 				146FBAB522FDE41B001BE271 /* .gitignore */,
 				146FBAB722FDE42A001BE271 /* .swiftlint.yml */,
 				146FBAB622FDE42A001BE271 /* .travis.yml */,
