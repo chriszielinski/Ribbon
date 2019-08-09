@@ -159,9 +159,9 @@
 		1479C39122E15600000DF838 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1479C39422E15600000DF838 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1479C39622E15600000DF838 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1479C39722E15600000DF838 /* Demo__macOS_.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo__macOS_.entitlements; sourceTree = "<group>"; };
 		147F82FE22FCC3CD006CC865 /* validate-carthage */ = {isa = PBXFileReference; lastKnownFileType = text; path = "validate-carthage"; sourceTree = "<group>"; };
 		148D3E0722F35BAE001045AB /* CodingUserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingUserInfoKey.swift; sourceTree = "<group>"; };
+		149521B522FCF0D300CE479D /* Ribbon Demo (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Ribbon Demo (macOS).entitlements"; path = "../../Ribbon Demo (macOS).entitlements"; sourceTree = "<group>"; };
 		14AB5FDB22EFAEDA00BC721F /* RibbonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonColor.swift; sourceTree = "<group>"; };
 		14B2A31922EA4E19009AC07A /* RibbonItemObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonItemObserver.swift; sourceTree = "<group>"; };
 		14E6662F22F23E000094BC0A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -358,10 +358,10 @@
 			children = (
 				1479C38D22E155FF000DF838 /* AppDelegate.swift */,
 				1479C39122E15600000DF838 /* Assets.xcassets */,
-				1479C39722E15600000DF838 /* Demo__macOS_.entitlements */,
 				14740F8E22EC1CA9009F1D84 /* Extensions */,
 				1479C39622E15600000DF838 /* Info.plist */,
 				1479C39322E15600000DF838 /* Main.storyboard */,
+				149521B522FCF0D300CE479D /* Ribbon Demo (macOS).entitlements */,
 				1479C38F22E155FF000DF838 /* ViewController.swift */,
 			);
 			path = "Demo (macOS)";
@@ -985,10 +985,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Demos/Demo (macOS)/Ribbon Demo (macOS).entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Demos/Demo (macOS)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1006,10 +1008,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Demos/Demo (macOS)/Ribbon Demo (macOS).entitlements";
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Demos/Demo (macOS)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
