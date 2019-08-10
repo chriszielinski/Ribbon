@@ -2,6 +2,7 @@ Ribbon 🎀
 ========
 
 <p align="center">
+    <img alt="Supported Platforms" src ="https://img.shields.io/badge/platform-iOS%20%7C%20macOS-informational"/>
     <a href="https://github.com/Carthage/Carthage" style="text-decoration:none" target="_blank">
         <img alt="Carthage compatible" src ="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"/>
     </a>
