@@ -85,28 +85,42 @@ open class Ribbon: RibbonShim {
 
     // MARK: - Computed Properties
 
+    // MARK: Private
+
     #if canImport(UIKit)
-    open var toolbarView: UIView? {
-        return subviews.first
+    private var visualEffectContentView: UIView? {
+        return (toolbarView as? UIVisualEffectView)?.contentView
     }
-    open var scrollView: UIScrollView? {
-        return (toolbarView as? UIVisualEffectView)?.contentView.subviews.first as? UIScrollView
-    }
-    open var stackView: UIStackView? {
-        return scrollView?.subviews.last as? UIStackView
-    }
-    open var topBorder: CALayer? {
-        return (toolbarView as? UIVisualEffectView)?.contentView.layer.sublayers?.first(where: { $0.name == "top" })
-    }
-    open var bottomBorder: CALayer? {
-        return (toolbarView as? UIVisualEffectView)?.contentView.layer.sublayers?.first(where: { $0.name == "bottom" })
-    }
-    #else
+    #endif
+
+    // MARK: Public
+
+    #if canImport(AppKit)
     public var menuItems: [NSMenuItem] {
         return items.map {
             $0.initializeMenuItemIfNeeded()
             return $0.menuItem!
         }
+    }
+    #endif
+
+    // MARK: Open
+
+    #if canImport(UIKit)
+    open var toolbarView: UIView? {
+        return subviews.first
+    }
+    open var scrollView: UIScrollView? {
+        return visualEffectContentView?.subviews.first as? UIScrollView
+    }
+    open var stackView: UIStackView? {
+        return scrollView?.viewWithTag((\Ribbon.stackView).hashValue) as? UIStackView
+    }
+    open var topBorder: CALayer? {
+        return visualEffectContentView?.layer.sublayer(named: String((\Ribbon.topBorder).hashValue))
+    }
+    open var bottomBorder: CALayer? {
+        return visualEffectContentView?.layer.sublayer(named: String((\Ribbon.bottomBorder).hashValue))
     }
     #endif
 
@@ -159,9 +173,9 @@ open class Ribbon: RibbonShim {
     #if canImport(UIKit)
     open override func layoutSubviews() {
         if let stackView = stackView {
-            scrollView?.contentSize.width = stackView.arrangedSubviews.reduce(0, {
+            scrollView?.contentSize.width = stackView.arrangedSubviews.reduce(0) {
                 $0 + $1.bounds.width + 8
-            })
+            }
         }
         topBorder?.frame = CGRect(origin: bounds.origin,
                                   size: CGSize(width: bounds.width, height: 0.5))
@@ -183,9 +197,9 @@ open class Ribbon: RibbonShim {
     #if canImport(UIKit)
     open func createInputAccessoryView() -> UIView {
         let topBorder = CALayer()
-        topBorder.name = "top"
+        topBorder.name = String((\Ribbon.topBorder).hashValue)
         let bottomBorder = CALayer()
-        bottomBorder.name = "bottom"
+        bottomBorder.name = String((\Ribbon.bottomBorder).hashValue)
 
         let visualEffectView = UIVisualEffectView(frame: bounds)
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -217,6 +231,7 @@ open class Ribbon: RibbonShim {
         stackView.alignment = .center
         stackView.axis = .horizontal
         stackView.spacing = 8
+        stackView.tag = (\Ribbon.stackView).hashValue
 
         return stackView
     }
@@ -230,8 +245,7 @@ open class Ribbon: RibbonShim {
         let proxy = Ribbon.appearance(for: UITraitCollection(userInterfaceStyle: style))
 
         if let borderColor = proxy.borderColor() {
-            topBorder?.backgroundColor = borderColor.cgColor
-            bottomBorder?.backgroundColor = borderColor.cgColor
+            setBorderColor(borderColor)
         }
 
         if style == .dark {

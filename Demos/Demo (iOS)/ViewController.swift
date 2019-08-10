@@ -21,24 +21,25 @@ class ViewController: UIViewController {
             let lightTextViewProxy = UITextView.appearance(for: UITraitCollection(userInterfaceStyle: .light))
             let darkTextViewProxy = UITextView.appearance(for: UITraitCollection(userInterfaceStyle: .dark))
 
-            darkTextViewProxy.tintColor = .white
-            darkTextViewProxy.textColor = .white
-            darkTextViewProxy.backgroundColor = UIColor(white: 1/6, alpha: 1)
-
             lightTextViewProxy.tintColor = nil
             lightTextViewProxy.textColor = .darkText
             lightTextViewProxy.backgroundColor = .white
+
+            darkTextViewProxy.tintColor = .white
+            darkTextViewProxy.textColor = .white
+            darkTextViewProxy.backgroundColor = UIColor(white: 1/6, alpha: 1)
 
             let lightNavigationBarProxy = UINavigationBar.appearance(for: UITraitCollection(userInterfaceStyle: .light))
             let darkNavigationBarProxy = UINavigationBar.appearance(for: UITraitCollection(userInterfaceStyle: .dark))
 
             lightNavigationBarProxy.tintColor = nil
+
             darkNavigationBarProxy.tintColor = .white
 
-            if #available(iOS 13.0, *) { } else {
-                lightNavigationBarProxy.barStyle = .default
-                darkNavigationBarProxy.barStyle = .black
-            }
+            #if !IOS13
+            lightNavigationBarProxy.barStyle = .default
+            darkNavigationBarProxy.barStyle = .black
+            #endif
         }
     }()
     #endif
@@ -77,6 +78,7 @@ class ViewController: UIViewController {
             return navigationController?.overrideUserInterfaceStyle ?? traitCollection.userInterfaceStyle
         }
         #endif
+
         return overrideTraitCollection(forChild: self)?.userInterfaceStyle ?? traitCollection.userInterfaceStyle
     }
 
@@ -127,36 +129,34 @@ class ViewController: UIViewController {
 
     @available(iOS 12.0, *)
     func setUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
-        let earlierVersion: () -> Void = { [unowned self] in
-            self.setOverrideTraitCollection(UITraitCollection(userInterfaceStyle: style), forChild: self)
+        view.window?.backgroundColor = style == .dark ? .black : .white
 
-            self.ribbon.setUserInterfaceStyle(style)
-
-            let textViewProxy = UITextView.appearance(for: UITraitCollection(userInterfaceStyle: style))
-            self.textView.tintColor = textViewProxy.tintColor
-            self.textView.textColor = textViewProxy.textColor
-            self.textView.backgroundColor = textViewProxy.backgroundColor
-            self.textView.keyboardAppearance = style == .dark ? .dark : .light
-
-            let navigationBarProxy = UINavigationBar.appearance(for: UITraitCollection(userInterfaceStyle: style))
-            self.navigationController?.navigationBar.tintColor = navigationBarProxy.tintColor
-            self.navigationController?.navigationBar.barStyle = navigationBarProxy.barStyle
-        }
-
-        #if IOS13
         if #available(iOS 13.0, *) {
             // Handled by new `UIAppearence` functionality.
+            #if IOS13
             navigationController?.overrideUserInterfaceStyle = style
             navigationController?.navigationBar.overrideUserInterfaceStyle = style
-        } else {
-            // Fallback on earlier versions
-            earlierVersion()
+            return
+            #else
+            navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: style == .dark ? UIColor.white : UIColor.black
+            ]
+            #endif
         }
-        #else
-        earlierVersion()
-        #endif
 
-        view.window?.backgroundColor = style == .dark ? .black : .white
+        setOverrideTraitCollection(UITraitCollection(userInterfaceStyle: style), forChild: self)
+
+        ribbon.setUserInterfaceStyle(style)
+
+        let textViewProxy = UITextView.appearance(for: UITraitCollection(userInterfaceStyle: style))
+        textView.tintColor = textViewProxy.tintColor
+        textView.textColor = textViewProxy.textColor
+        textView.backgroundColor = textViewProxy.backgroundColor
+        textView.keyboardAppearance = style == .dark ? .dark : .light
+
+        let navigationBarProxy = UINavigationBar.appearance(for: UITraitCollection(userInterfaceStyle: style))
+        navigationController?.navigationBar.tintColor = navigationBarProxy.tintColor
+        navigationController?.navigationBar.barStyle = navigationBarProxy.barStyle
     }
 
 }

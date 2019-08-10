@@ -20,6 +20,7 @@
 		1462921422DFB69400E1FB5B /* Ribbon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462921222DFB69400E1FB5B /* Ribbon.swift */; };
 		1462921522DFB69400E1FB5B /* RibbonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462921322DFB69400E1FB5B /* RibbonButton.swift */; };
 		1462923722E06F1D00E1FB5B /* Shims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1462923622E06F1D00E1FB5B /* Shims.swift */; };
+		14648B3422FE166F00D4C57D /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14648B3322FE166F00D4C57D /* CALayer.swift */; };
 		14670C0B22ECD814008EC71A /* RibbonMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14670C0A22ECD814008EC71A /* RibbonMenuItem.swift */; };
 		146E3CF022E79A1A0033EFBC /* RibbonTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E3CEE22E79A1A0033EFBC /* RibbonTarget.swift */; };
 		14740F6322EB7269009F1D84 /* NSToolbarItem.Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14740F6222EB7269009F1D84 /* NSToolbarItem.Identifier.swift */; };
@@ -139,6 +140,7 @@
 		1462921222DFB69400E1FB5B /* Ribbon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ribbon.swift; sourceTree = "<group>"; };
 		1462921322DFB69400E1FB5B /* RibbonButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RibbonButton.swift; sourceTree = "<group>"; };
 		1462923622E06F1D00E1FB5B /* Shims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shims.swift; sourceTree = "<group>"; };
+		14648B3322FE166F00D4C57D /* CALayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		14670C0A22ECD814008EC71A /* RibbonMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonMenuItem.swift; sourceTree = "<group>"; };
 		146E3CEE22E79A1A0033EFBC /* RibbonTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonTarget.swift; sourceTree = "<group>"; };
 		146FBAB122FDE3EE001BE271 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				145DCC7D22E9B0F800DCA750 /* Button.swift */,
+				14648B3322FE166F00D4C57D /* CALayer.swift */,
 				148D3E0722F35BAE001045AB /* CodingUserInfoKey.swift */,
 				14740F6422EB728D009F1D84 /* KeyedDecodingContainer.swift */,
 				145DCC7922E9031600DCA750 /* NSEvent.ModifierFlags.swift */,
@@ -672,6 +675,7 @@
 				14670C0B22ECD814008EC71A /* RibbonMenuItem.swift in Sources */,
 				14740F6322EB7269009F1D84 /* NSToolbarItem.Identifier.swift in Sources */,
 				145DCC7A22E9031600DCA750 /* NSEvent.ModifierFlags.swift in Sources */,
+				14648B3422FE166F00D4C57D /* CALayer.swift in Sources */,
 				1462921422DFB69400E1FB5B /* Ribbon.swift in Sources */,
 				145DCC7822E8D9B200DCA750 /* RibbonPopUpButton.swift in Sources */,
 				14740F6C22EB7869009F1D84 /* RibbonDelegate.swift in Sources */,
