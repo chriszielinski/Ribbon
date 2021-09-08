@@ -138,7 +138,6 @@ open class Ribbon: RibbonShim {
 
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
 
-        autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(createInputAccessoryView())
 
         if let stackView = stackView, let scrollView = scrollView {
@@ -147,6 +146,19 @@ open class Ribbon: RibbonShim {
                 stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor)
                 ])
         }
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UITextView.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillChangeFrame),
+                                               name: UITextView.keyboardWillChangeFrameNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardDidChangeFrame(notification:)),
+                                               name: UITextView.keyboardDidChangeFrameNotification,
+                                               object: nil)
 
         setNeedsLayout()
         #else
@@ -168,15 +180,228 @@ open class Ribbon: RibbonShim {
         self.configuration = configuration
     }
 
+    // MARK: - Context Menu
+
+    #if canImport(UIKit)
+    var keyboardSnapshotView: UIView?
+
+    open var wantsFullScreenForContextMenu: Bool {
+        guard let window = window
+            else { return traitCollection.verticalSizeClass == .compact }
+
+        let windowHeight = window.bounds.height
+        let yOriginInWindow = convert(frame, to: nil).origin.y
+
+        return yOriginInWindow < (windowHeight / 2)
+    }
+
+    open func removeFromKeyboard() {
+        guard let textView = textView, let containerView = textView.superview
+            else { return }
+
+        textView.inputAccessoryView = nil
+
+        if wantsFullScreenForContextMenu,
+            let snapshot = UIApplication.shared.keyboardWindow?
+                .snapshotView(afterScreenUpdates: false) {
+            keyboardSnapshotView = snapshot
+            containerView.addSubview(snapshot)
+        }
+
+        containerView.addSubview(self)
+
+        textView.reloadInputViews()
+
+        NSLayoutConstraint.activate([
+            bottomAnchorConstraint!,
+            leadingAnchorConstraint!,
+            trailingAnchorConstraint!
+        ])
+    }
+
+    open func addToKeyboard() {
+        keyboardSnapshotView?.removeFromSuperview()
+        keyboardSnapshotView = nil
+
+        removeFromSuperview()
+
+        textView?.inputAccessoryView = self
+        textView?.reloadInputViews()
+    }
+
+    open func beginContextMenuInteraction() {
+        // This bit and the commented-out bit below keep the keyboard on screen, but Apple does
+        // not like it; it is being kept here because it is ~super~ cool. The assertion thrown:
+        // "[Assert] UITextEffectsWindow should not become key. Please file a bug to Keyboard | iOS
+        // with this call stack:"
+        let wantsFullScreen = wantsFullScreenForContextMenu
+
+        removeFromKeyboard()
+
+//        if !wantsFullScreen {
+//            UIApplication.shared.keyboardWindow?.makeKeyAndVisible()
+//        }
+    }
+
+    open func endContextMenuInteraction() {
+        showKeyboard()
+        addToKeyboard()
+    }
+    #endif
+
     // MARK: - Overridden Methods
 
     #if canImport(UIKit)
-    open override func layoutSubviews() {
-        if let stackView = stackView {
-            scrollView?.contentSize.width = stackView.arrangedSubviews.reduce(0) {
-                $0 + $1.bounds.width + 8
+    public var bottomAnchorConstraint: NSLayoutConstraint?
+    public var leadingAnchorConstraint: NSLayoutConstraint?
+    public var trailingAnchorConstraint: NSLayoutConstraint?
+    public weak var textView: UITextView?
+
+    var presentingContextMenu = false {
+        willSet {
+            if newValue && hidingContextMenu {
+                hidingContextMenu = false
             }
         }
+    }
+    var hidingContextMenu = false {
+        willSet {
+            if newValue && presentingContextMenu {
+                presentingContextMenu = false
+            }
+        }
+    }
+
+    open func setKeyboard(hidden: Bool) {
+        let newAlphaValue: CGFloat = hidden ? 0 : 1
+
+        guard let keyboardWindow = UIApplication.shared.keyboardWindow,
+            keyboardWindow.alpha != newAlphaValue
+            else { return }
+
+        UIView.performWithoutAnimation {
+            keyboardWindow.alpha = newAlphaValue
+        }
+    }
+    open func showKeyboard() {
+        setKeyboard(hidden: false)
+    }
+    open func hideKeyboard() {
+        setKeyboard(hidden: true)
+    }
+
+    @objc
+    func keyboardWillShow(notification: Notification) {
+        if keyboardSnapshotView != nil {
+            if presentingContextMenu || hidingContextMenu {
+                hideKeyboard()
+            }
+        } else {
+            showKeyboard()
+        }
+
+        updateKeyboard(notification: notification)
+    }
+
+    @objc
+    func keyboardWillChangeFrame(notification: Notification) {
+        if traitCollection.userInterfaceIdiom == .pad {
+            if keyboardSnapshotView != nil {
+                if presentingContextMenu || hidingContextMenu {
+                    hideKeyboard()
+                }
+            } else {
+                showKeyboard()
+            }
+
+            updateKeyboard(notification: notification)
+        }
+    }
+
+    var cachedKeyboard: RibbonKeyboard?
+
+    @objc
+    func keyboardDidChangeFrame(notification: Notification) {
+        guard let info = notification.userInfo
+            else { return }
+
+        let beginFrame = (info[UITextView.keyboardFrameBeginUserInfoKey] as? CGRect)
+            ?? .zero
+        let endFrame = (info[UITextView.keyboardFrameEndUserInfoKey] as? CGRect)
+            ?? .zero
+        let keyboardFrame = endFrame != .zero ? endFrame : beginFrame
+        if keyboardFrame != .zero {
+            DispatchQueue.main.async {
+                self.cachedKeyboard = RibbonKeyboard.current(endFrame: keyboardFrame)
+            }
+        }
+    }
+
+    func updateKeyboard(notification: Notification) {
+        guard !hidingContextMenu, let info = notification.userInfo
+            else { return }
+
+        if let endFrame = info[UITextView.keyboardFrameEndUserInfoKey] as? CGRect,
+           let window = window {
+            if window.frame.height == endFrame.origin.y && keyboardSnapshotView != nil {
+                // Keyboard snapshot view is visible, so do not update the constraint.
+                return
+            }
+
+            if traitCollection.userInterfaceIdiom == .pad {
+                if cachedKeyboard == .floating {
+                    bottomAnchorConstraint?.constant = 0
+                } else {
+                    bottomAnchorConstraint?.constant = -(window.frame.height - endFrame.origin.y)
+                        + (textView?.inputAccessoryView == nil ? 0 : bounds.height)
+                }
+            } else {
+                bottomAnchorConstraint?.constant = -endFrame.height
+                    + (textView?.inputAccessoryView == nil ? 0 : bounds.height)
+            }
+        }
+    }
+
+    open func add(to textView: UITextView) {
+        assert(textView.superview != nil, "The `UITextView` must have a superview.")
+        guard let rootView = textView.superview
+            else { return }
+
+        textView.inputAccessoryView = self
+
+        self.textView = textView
+
+        translatesAutoresizingMaskIntoConstraints = false
+
+        if #available(iOS 11.0, *) {
+            bottomAnchorConstraint = bottomAnchor.constraint(equalTo: rootView.bottomAnchor)
+        } else {
+            bottomAnchorConstraint = bottomAnchor.constraint(equalTo: rootView.bottomAnchor)
+        }
+
+        leadingAnchorConstraint = leadingAnchor.constraint(equalTo: rootView.leadingAnchor)
+        trailingAnchorConstraint = trailingAnchor.constraint(equalTo: rootView.trailingAnchor)
+
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+        setNeedsLayout()
+    }
+
+    open override func layoutSubviews() {
+        if let stackView = stackView, let scrollView = scrollView {
+            var availableWidth = frame.width
+            if #available(iOS 11.0, *) {
+                availableWidth -= scrollView.safeAreaInsets.left + scrollView.safeAreaInsets.right
+            }
+            let size = stackView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+            scrollView.contentInset.left = size.width < availableWidth
+                ? ((availableWidth - size.width) / 2)
+                : 4
+        }
+
         topBorder?.frame = CGRect(origin: bounds.origin,
                                   size: CGSize(width: bounds.width, height: 0.5))
         bottomBorder?.frame = CGRect(origin: CGPoint(x: 0, y: bounds.maxY - 1),
@@ -217,6 +442,7 @@ open class Ribbon: RibbonShim {
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         scrollView.backgroundColor = .clear
         scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.alwaysBounceHorizontal = true
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
 

@@ -1,0 +1,79 @@
+{
+    "items": [
+        {
+            "action": "pushItemHandler",
+            "controlKind": "push",
+            "identifier": "push-item",
+            "keyEquivalent": "p",
+            "keyEquivalentModifier": ["command", "shift"],
+            "menuTitle": "Push Menu Item",
+            "title": "Bold Push Item",
+            "macOSUsesAttributedTitle": true,
+            "usesAttributedTitleInMenu": false,
+            "toolTip": "The push button's tool-tip.",
+            "isHidden": false
+        },
+        {
+            "action": "actionItemHandler",
+            "controlKind": "action",
+            "usesAttributedTitle": false,
+            "identifier": "action-item",
+            "keyEquivalent": "a",
+            "keyEquivalentModifier": ["command", "shift"],
+            "title": "Action Item",
+            "toolTip": "The action button's tool-tip.",
+            "usesToolTipInMenu": false,
+            "subitems": [
+                {
+                    "action": "firstActionSubitemHandler",
+                    "usesAttributedTitle": false,
+                    "identifier": "first-action-subitem",
+                    "imageName": "hand.thumbsup",
+                    "keyEquivalent": "1",
+                    "keyEquivalentModifier": ["command"],
+                    "title": "First Action Subitem",
+                    "toolTip": "The first action's tool-tip."
+                }
+            ]
+        },
+        {
+            "action": "segmentedItemHandler",
+            "controlKind": "segmented",
+            "usesAttributedTitle": false,
+            "keyEquivalent": "s",
+            "keyEquivalentModifier": ["command", "shift"],
+            "title": "Segmented Item",
+            "toolTip": "The segmented button's tool-tip.",
+            "subitems": [
+                {
+                    "action": "firstSegmentedSubitemHandler",
+                    "usesAttributedTitle": false,
+                    "identifier": "first-segmented-subitem",
+                    "imageName": "chevron-left",
+                    "keyEquivalent": "3",
+                    "keyEquivalentModifier": ["command"],
+                    "title": "First Segmented Subitem",
+                    "toolTip": "The first segment's tool-tip."
+                },
+                {
+                    "action": "secondSegmentedSubitemHandler",
+                    "usesAttributedTitle": false,
+                    "identifier": "second-segmented-subitem",
+                    "imageName": "chevron-right",
+                    "keyEquivalent": "4",
+                    "keyEquivalentModifier": ["command"],
+                    "title": "Second Segmented Subitem",
+                    "toolTip": "The second segment's tool-tip."
+                }
+            ]
+        }
+    ],
+    "toolbar": {
+        "allowsUserCustomization": true,
+        "displayMode": "iconOnly",
+        "isVisible": true,
+        "sizeMode": "regular",
+        "identifier": "com.bigzlabs.RibbonDemo",
+        "defaultItems" : ["push-item", "NSToolbarFlexibleSpaceItem", "action-item", "Segmented Item"]
+    }
+}

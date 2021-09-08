@@ -373,8 +373,10 @@ class RibbonUnitTests: XCTestCase {
     #endif
 
     #if canImport(UIKit)
-    @available(iOS 12.0, *)
     func testChangeUserInterface() throws {
+        guard #available(iOS 12.0, *)
+            else { return }
+
         let ribbon = try createRibbon(target: nil)
 
         ribbon.setUserInterfaceStyle(.dark)

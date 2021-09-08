@@ -80,13 +80,14 @@ public class RibbonButton: Button, RibbonItemObserver {
         layer.cornerRadius = 5
         layer.borderWidth = 1
 
-        #if IOS13
+        translatesAutoresizingMaskIntoConstraints = false
+
         if #available(iOS 13.0, *), item.controlKind == .action {
+            translatesAutoresizingMaskIntoConstraints = false
             imageEdgeInsets.left = -4
             setImage(UIImage(systemName: "chevron.up.chevron.down"), for: .normal)
             addInteraction(UIContextMenuInteraction(delegate: self))
         }
-        #endif
 
         addTarget(self, action: #selector(didTouchDownAction), for: .touchDown)
         addTarget(item, action: #selector(RibbonItem.sendAction(_:_:)), for: .touchUpInside)
@@ -151,14 +152,15 @@ public class RibbonButton: Button, RibbonItemObserver {
         super.isHighlighted = false
     }
 
-    #if IOS13
     @objc
     open func dismissContextMenuInteraction() {
-        UIApplication.shared.windows
-            .first(where: { $0.rootViewController?.presentedViewController != nil })?.rootViewController?
-            .dismiss(animated: true)
+        guard let contextMenuVC = window?.rootViewController?.presentedViewController
+            else { return }
+
+        assert(String(describing: type(of: contextMenuVC)).contains("Context"))
+
+        contextMenuVC.dismiss(animated: true, completion: nil)
     }
-    #endif
     #endif
 
     // MARK: - RibbonItemObserver Protocol
@@ -172,7 +174,7 @@ public class RibbonButton: Button, RibbonItemObserver {
             setAttributedTitle(nil)
             setImage(itemImage)
         } else {
-            #if canImport(UIKit) && IOS13
+            #if canImport(UIKit)
             if #available(iOS 13.0, *), item.controlKind == .action {
                 // Do nothing.
             } else {
@@ -226,9 +228,9 @@ extension RibbonButton {
 
 // MARK: - UIContextMenuInteractionDelegate Protocol & Friends
 
-#if canImport(UIKit) && IOS13
+#if canImport(UIKit)
 @available(iOS 13.0, *)
-extension RibbonButton: UIContextMenuInteractionDelegate {
+extension RibbonButton {
 
     private func contextMenuAction(_ action: UIAction) {
         guard let subitem = item?.subitems?.first(where: { $0.identifier == action.identifier.rawValue })
@@ -245,18 +247,40 @@ extension RibbonButton: UIContextMenuInteractionDelegate {
         return UIMenu(title: "", image: nil, identifier: nil, options: [], children: actions)
     }
 
-    public func contextMenuInteraction(
-        _ interaction: UIContextMenuInteraction,
-        configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-        return UIContextMenuConfiguration(identifier: nil,
-                                          previewProvider: nil,
-                                          actionProvider: contextMenuActionProvider)
+    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                                configurationForMenuAtLocation location: CGPoint)
+        -> UIContextMenuConfiguration? {
+            guard let ribbon = item?.ribbon
+                else { return nil }
+
+            // A Force Touch gesture does not highlight the button.
+            isHighlighted = true
+
+            ribbon.presentingContextMenu = true
+            ribbon.beginContextMenuInteraction()
+
+            return UIContextMenuConfiguration(identifier: nil,
+                                              previewProvider: nil,
+                                              actionProvider: contextMenuActionProvider)
     }
 
-    public func contextMenuInteractionWillPresent(_ interaction: UIContextMenuInteraction) {
-        guard let item = item
+    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                                willDisplayMenuFor configuration: UIContextMenuConfiguration,
+                                                animator: UIContextMenuInteractionAnimating?) {
+        guard let item = item, let ribbon = item.ribbon
             else { return }
-        item.ribbon?.delegate?.ribbon?(contextMenuInteractionWillPresent: item.identifier)
+
+        let block: () -> Void = { ribbon.presentingContextMenu = false }
+        if let animator = animator {
+            animator.addCompletion(block)
+        } else {
+            DispatchQueue.main.async(execute: block)
+        }
+
+        isUserInteractionEnabled = false
+        isHighlighted = false
+
+        ribbon.delegate?.ribbon?(contextMenuInteractionWillPresent: item.identifier)
 
         // Dismiss the interaction when the keyboard is used.
         NotificationCenter.default.addObserver(self,
@@ -265,12 +289,39 @@ extension RibbonButton: UIContextMenuInteractionDelegate {
                                                object: nil)
     }
 
-    public func contextMenuInteractionDidEnd(_ interaction: UIContextMenuInteraction) {
-        guard let item = item
+    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                                willEndFor configuration: UIContextMenuConfiguration,
+                                                animator: UIContextMenuInteractionAnimating?) {
+        guard let item = item, let ribbon = item.ribbon
             else { return }
-        item.ribbon?.delegate?.ribbon?(contextMenuInteractionDidEnd: item.identifier)
 
-        NotificationCenter.default.removeObserver(self, name: UITextView.textDidChangeNotification, object: nil)
+        animator?.addCompletion {
+            ribbon.hidingContextMenu = false
+
+            DispatchQueue.main.async {
+                ribbon.endContextMenuInteraction()
+                self.isUserInteractionEnabled = true
+            }
+        }
+
+        ribbon.hidingContextMenu = true
+        ribbon.delegate?.ribbon?(contextMenuInteractionDidEnd: item.identifier)
+
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UITextView.textDidChangeNotification,
+                                                  object: nil)
+    }
+
+    public override func contextMenuInteraction(_ interaction: UIContextMenuInteraction,
+                                                previewForHighlightingMenuWithConfiguration
+                                                    configuration: UIContextMenuConfiguration)
+        -> UITargetedPreview? {
+            let params = UIPreviewParameters()
+            params.backgroundColor = .clear
+            params.visiblePath = UIBezierPath(roundedRect: bounds,
+                                              cornerRadius: 6)
+
+            return UITargetedPreview(view: self, parameters: params)
     }
 
 }

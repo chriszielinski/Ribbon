@@ -1,5 +1,0 @@
-/// Uncomment to build Ribbon for iOS 13.
-///
-/// - Note: Requires Xcode 11.
-
-//SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) IOS13

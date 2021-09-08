@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1403BB7F22FCF620003D3FD3 /* NSToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403BB7E22FCF620003D3FD3 /* NSToolbarItem.swift */; };
+		14405C9924044BAD0050F035 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14405C9824044BAD0050F035 /* UIApplication.swift */; };
 		1446212422E53B3E00EEC704 /* ribbon-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1446212322E53B3E00EEC704 /* ribbon-configuration.json */; };
 		14510F7B22E6B3CD00E6E67B /* NSToolbarItem.Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14510F7A22E6B3CD00E6E67B /* NSToolbarItem.Identifier.swift */; };
 		145C634922F50A2700DA3023 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145C634822F50A2700DA3023 /* Control.swift */; };
@@ -49,6 +50,7 @@
 		148D3E0822F35BAE001045AB /* CodingUserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148D3E0722F35BAE001045AB /* CodingUserInfoKey.swift */; };
 		14AB5FDC22EFAEDA00BC721F /* RibbonColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AB5FDB22EFAEDA00BC721F /* RibbonColor.swift */; };
 		14B2A31A22EA4E19009AC07A /* RibbonItemObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B2A31922EA4E19009AC07A /* RibbonItemObserver.swift */; };
+		14D10D7026E82ABB00F0E1E0 /* UIUserInterfaceStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D10D6F26E82ABB00F0E1E0 /* UIUserInterfaceStyle.swift */; };
 		14E6CF5E22F0B44B002ADF6F /* RibbonUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E6CF5D22F0B44B002ADF6F /* RibbonUnitTests.swift */; };
 		14E6CF6522F0B54F002ADF6F /* ribbon-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1446212322E53B3E00EEC704 /* ribbon-configuration.json */; };
 		14E6CF6622F0B593002ADF6F /* RibbonTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E3CEE22E79A1A0033EFBC /* RibbonTarget.swift */; };
@@ -58,6 +60,7 @@
 		14E6CF7822F10FAC002ADF6F /* ribbon-configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 1446212322E53B3E00EEC704 /* ribbon-configuration.json */; };
 		14E6CF7922F11133002ADF6F /* RibbonTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 146E3CEE22E79A1A0033EFBC /* RibbonTarget.swift */; };
 		14E6CF7A22F11133002ADF6F /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1446212522E57C7000EEC704 /* String.swift */; };
+		14E7680524069FDB008C2823 /* RibbonKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E7680424069FDA008C2823 /* RibbonKeyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,10 +128,10 @@
 
 /* Begin PBXFileReference section */
 		1403BB7E22FCF620003D3FD3 /* NSToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSToolbarItem.swift; sourceTree = "<group>"; };
+		14405C9824044BAD0050F035 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		1446212322E53B3E00EEC704 /* ribbon-configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "ribbon-configuration.json"; sourceTree = "<group>"; };
 		1446212522E57C7000EEC704 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		14510F7A22E6B3CD00E6E67B /* NSToolbarItem.Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSToolbarItem.Identifier.swift; sourceTree = "<group>"; };
-		1458F9FE22F2E9F20067197E /* iOS13.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = iOS13.xcconfig; sourceTree = "<group>"; };
 		145C634822F50A2700DA3023 /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		145DCC7522E8D98200DCA750 /* RibbonSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonSegmentedControl.swift; sourceTree = "<group>"; };
 		145DCC7722E8D9B200DCA750 /* RibbonPopUpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonPopUpButton.swift; sourceTree = "<group>"; };
@@ -176,11 +179,13 @@
 		149521B522FCF0D300CE479D /* Ribbon Demo (macOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Ribbon Demo (macOS).entitlements"; path = "../../Ribbon Demo (macOS).entitlements"; sourceTree = "<group>"; };
 		14AB5FDB22EFAEDA00BC721F /* RibbonColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonColor.swift; sourceTree = "<group>"; };
 		14B2A31922EA4E19009AC07A /* RibbonItemObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonItemObserver.swift; sourceTree = "<group>"; };
+		14D10D6F26E82ABB00F0E1E0 /* UIUserInterfaceStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUserInterfaceStyle.swift; sourceTree = "<group>"; };
 		14E6662F22F23E000094BC0A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		14E6CF5B22F0B44B002ADF6F /* Unit Tests (macOS).xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests (macOS).xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14E6CF5D22F0B44B002ADF6F /* RibbonUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonUnitTests.swift; sourceTree = "<group>"; };
 		14E6CF5F22F0B44B002ADF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		14E6CF6C22F10F02002ADF6F /* Unit Tests (iOS).xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests (iOS).xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		14E7680424069FDA008C2823 /* RibbonKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RibbonKeyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +268,8 @@
 				14740F6222EB7269009F1D84 /* NSToolbarItem.Identifier.swift */,
 				1403BB7E22FCF620003D3FD3 /* NSToolbarItem.swift */,
 				14AB5FDB22EFAEDA00BC721F /* RibbonColor.swift */,
+				14405C9824044BAD0050F035 /* UIApplication.swift */,
+				14D10D6F26E82ABB00F0E1E0 /* UIUserInterfaceStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +301,7 @@
 		1462920922DFB66400E1FB5B /* Ribbon */ = {
 			isa = PBXGroup;
 			children = (
+				14E7680324069E98008C2823 /* Enumerations */,
 				145DCC7122E8D90800DCA750 /* Controls */,
 				145DCC7222E8D91500DCA750 /* Extensions */,
 				1462920B22DFB66400E1FB5B /* Info.plist */,
@@ -332,7 +340,6 @@
 				146FBAB522FDE41B001BE271 /* .gitignore */,
 				146FBAB722FDE42A001BE271 /* .swiftlint.yml */,
 				146FBAB622FDE42A001BE271 /* .travis.yml */,
-				1458F9FE22F2E9F20067197E /* iOS13.xcconfig */,
 				146FBAB222FDE3EE001BE271 /* LICENSE */,
 				146FBAB122FDE3EE001BE271 /* Makefile */,
 				14E6662F22F23E000094BC0A /* README.md */,
@@ -422,6 +429,14 @@
 				14E6CF5D22F0B44B002ADF6F /* RibbonUnitTests.swift */,
 			);
 			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		14E7680324069E98008C2823 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				14E7680424069FDA008C2823 /* RibbonKeyboard.swift */,
+			);
+			path = Enumerations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -539,7 +554,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "Big Z Labs";
 				TargetAttributes = {
 					1462920622DFB66400E1FB5B = {
@@ -674,6 +689,7 @@
 				14740F6A22EB7699009F1D84 /* RibbonToolbarConfiguration.swift in Sources */,
 				14670C0B22ECD814008EC71A /* RibbonMenuItem.swift in Sources */,
 				14740F6322EB7269009F1D84 /* NSToolbarItem.Identifier.swift in Sources */,
+				14D10D7026E82ABB00F0E1E0 /* UIUserInterfaceStyle.swift in Sources */,
 				145DCC7A22E9031600DCA750 /* NSEvent.ModifierFlags.swift in Sources */,
 				14648B3422FE166F00D4C57D /* CALayer.swift in Sources */,
 				1462921422DFB69400E1FB5B /* Ribbon.swift in Sources */,
@@ -681,6 +697,8 @@
 				14740F6C22EB7869009F1D84 /* RibbonDelegate.swift in Sources */,
 				1462923722E06F1D00E1FB5B /* Shims.swift in Sources */,
 				145DCC7E22E9B0F800DCA750 /* Button.swift in Sources */,
+				14405C9924044BAD0050F035 /* UIApplication.swift in Sources */,
+				14E7680524069FDB008C2823 /* RibbonKeyboard.swift in Sources */,
 				14740F6822EB765F009F1D84 /* RibbonConfiguration.swift in Sources */,
 				1462921522DFB69400E1FB5B /* RibbonButton.swift in Sources */,
 				14740F6E22EB9004009F1D84 /* NSToolbar.swift in Sources */,
@@ -817,6 +835,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -843,7 +862,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -882,6 +901,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -902,7 +922,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -917,7 +937,6 @@
 		};
 		1462921022DFB66400E1FB5B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1458F9FE22F2E9F20067197E /* iOS13.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -946,7 +965,6 @@
 		};
 		1462921122DFB66400E1FB5B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1458F9FE22F2E9F20067197E /* iOS13.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -974,12 +992,11 @@
 		};
 		14740F8322EBF246009F1D84 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1458F9FE22F2E9F20067197E /* iOS13.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9V456WSURS;
 				INFOPLIST_FILE = "Demos/Demo (iOS)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -994,12 +1011,11 @@
 		};
 		14740F8422EBF246009F1D84 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1458F9FE22F2E9F20067197E /* iOS13.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9V456WSURS;
 				INFOPLIST_FILE = "Demos/Demo (iOS)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1104,7 +1120,6 @@
 		};
 		14E6CF7522F10F02002ADF6F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1458F9FE22F2E9F20067197E /* iOS13.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -1126,7 +1141,6 @@
 		};
 		14E6CF7622F10F02002ADF6F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1458F9FE22F2E9F20067197E /* iOS13.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";

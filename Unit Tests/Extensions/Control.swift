@@ -20,7 +20,7 @@ extension Control {
 
             button.sendActions(for: .touchUpInside)
             button.isHighlighted = false
-            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.2))
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 0.5))
             XCTAssertFalse(button.isHighlighted)
         }
         #else

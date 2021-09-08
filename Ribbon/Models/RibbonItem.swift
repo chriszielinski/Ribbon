@@ -77,7 +77,7 @@ open class RibbonItem: NSObject, Decodable, RibbonItemObserver {
     public var toolbarItem: NSToolbarItem?
     #endif
 
-    // MARK: Variable + Property Observer
+    // MARK: Variable — Property Observer
 
     /// - Important: Must call `didChangeItem()` after modifying the attributed string.
     public var attributedTitle: NSMutableAttributedString {

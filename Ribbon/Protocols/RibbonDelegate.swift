@@ -16,7 +16,7 @@ public protocol RibbonDelegate: class {
     @objc
     optional func ribbon(didDecode item: RibbonItem)
 
-    #if canImport(UIKit) && IOS13
+    #if canImport(UIKit)
     @objc
     optional func ribbon(contextMenuInteractionWillPresent itemIdentifier: RibbonItem.Identifier)
     @objc
