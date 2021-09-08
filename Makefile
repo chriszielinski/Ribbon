@@ -30,5 +30,5 @@ travis-test: test-ios test-macos
 
 validate:
 	pod lib lint --allow-warnings
-	carthage build --no-skip-current
+	carthage build --no-skip-current --use-xcframeworks
 	./Scripts/validate-carthage
