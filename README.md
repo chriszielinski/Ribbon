@@ -64,6 +64,8 @@ Features
 - Supports push buttons—a segmented item's subitems become push buttons. 
 - iOS 13: [action] items use the new [context menu interaction](https://developer.apple.com/design/human-interface-guidelines/ios/controls/context-menus/):
 
+   > **Note:** Due to an internal assertion, the keyboard can no longer remain visible during the interaction.
+
    <img src="https://raw.githubusercontent.com/chriszielinski/Ribbon/master/.readme-assets/ios13.gif" height="450" alt="iOS 13 Context Menu Interaction">
 
 #### macOS
@@ -99,19 +101,6 @@ github "chriszielinski/Ribbon"
 
 ```ruby
 pod "Ribbon"
-```
-
-iOS 13
-------
-
-Building for iOS 13 requires [Xcode 11](https://developer.apple.com/xcode/) and modifying [_iOS13.xcconfig_](https://github.com/chriszielinski/Ribbon/blob/master/iOS13.xcconfig):
-
-```swift
-// Uncomment to build Ribbon for iOS 13.
-//
-// - Note: Requires Xcode 11.
-
-SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) IOS13
 ```
 
 
